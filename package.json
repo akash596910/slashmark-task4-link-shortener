@@ -1,0 +1,14 @@
+{
+  "name": "slashmark-task4-link-shortener",
+  "version": "1.0.0",
+  "description": "Full Stack URL Shortener with Analytics built for Slash Mark Internship",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nanoid": "^3.3.7"
+  }
+}

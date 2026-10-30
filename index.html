@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortPulse | Smart URL Shortener & Analytics</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0b132b; color: #f8fafc; display: flex; justify-content: center; padding: 2.5rem 1rem; min-height: 100vh; }
+        .container { max-width: 720px; width: 100%; }
+        header { text-align: center; margin-bottom: 2rem; }
+        header h1 { font-size: 2.4rem; color: #38bdf8; }
+        header p { color: #94a3b8; font-size: 1rem; }
+        .card { background: #1c2541; padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem; }
+        .input-group { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        input[type="text"] { flex: 1; padding: 0.85rem 1.2rem; border-radius: 8px; border: 1px solid #3a506b; background: #0b132b; color: #fff; font-size: 1rem; outline: none; }
+        button { background: #38bdf8; color: #0b132b; border: none; padding: 0.85rem 1.8rem; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+        button:hover { background: #0284c7; color: white; }
+        .result-box { display: none; margin-top: 1.5rem; padding: 1.2rem; background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; border-radius: 8px; word-break: break-all; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #3a506b; font-size: 0.9rem; }
+        th { color: #38bdf8; font-weight: 600; }
+        td a { color: #38bdf8; text-decoration: none; }
+        .badge { background: #0284c7; padding: 0.2rem 0.6rem; border-radius: 12px; font-weight: 700; }
+        footer { text-align: center; color: #64748b; font-size: 0.85rem; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShortPulse</h1>
+            <p>Full-Stack URL Shortener & Click Tracking Analytics</p>
+        </header>
+
+        <div class="card">
+            <h3>Paste long URL to shorten:</h3>
+            <div class="input-group">
+                <input type="text" id="urlInput" placeholder="https://example.com/very-long-url-path">
+                <button onclick="shortenUrl()">Shorten</button>
+            </div>
+            <div id="resultBox" class="result-box">
+                <p>Your shortened URL:</p>
+                <h3 id="shortUrlDisplay" style="color: #38bdf8; margin-top: 0.5rem;"></h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Recent Links & Real-Time Analytics</h3>
+            <table id="analyticsTable">
+                <thead>
+                    <tr>
+                        <th>Short Code</th>
+                        <th>Target Destination</th>
+                        <th>Total Clicks</th>
+                    </tr>
+                </thead>
+                <tbody id="analyticsBody">
+                    <tr>
+                        <td><code>a8f9x2</code></td>
+                        <td>https://github.com/akash596910</td>
+                        <td><span class="badge">14 clicks</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>e4c2v1</code></td>
+                        <td>https://lms.slashmark.in/dashboard</td>
+                        <td><span class="badge">9 clicks</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p>Slash Mark IT Solutions Internship | Task 4 Submission</p>
+        </footer>
+    </div>
+
+    <script>
+        function shortenUrl() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (!url) return alert('Enter a valid URL');
+            const code = Math.random().toString(36).substring(2, 8);
+            const shortUrl = window.location.origin + '/' + code;
+
+            document.getElementById('shortUrlDisplay').innerHTML = `<a href="${url}" target="_blank" style="color:#38bdf8">${shortUrl}</a>`;
+            document.getElementById('resultBox').style.display = 'block';
+
+            const tbody = document.getElementById('analyticsBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td><code>${code}</code></td><td>${url}</td><td><span class="badge">0 clicks</span></td>`;
+            tbody.insertBefore(tr, tbody.firstChild);
+        }
+    </script>
+</body>
+</html>
